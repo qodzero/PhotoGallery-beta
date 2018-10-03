@@ -1,0 +1,60 @@
+#: import icon kivy.garden.iconfonts.icon
+
+<GalleryWindow>:
+    id: main_win
+    img_operations: img_operations.__self__
+    padding: 20
+    spacing: 45
+    orientation: 'vertical'
+    canvas.before:
+        Color:
+            rgba: (1,1,1, 1)
+        BorderImage:
+            source: './img/samuelwork.png'
+
+            pos: self.pos
+            size: self.size
+    
+    BoxLayout:
+        id: top_nav
+        size_hint: (1,None)
+        size: (500, 40)
+
+        Label:
+            text: 'Image Gallery'
+            size_hint: (.95, None)
+            size: (500, 30)
+
+        Button:
+            id: select_multiple
+            markup: True
+            text: "%s"%(icon('zmdi-more-vert', 32))
+            background_normal: ''
+            background_color: (1,1,1, .001)
+
+            size_hint: (.05, None)
+            size: (10, 30)
+            on_release: img_operations.open(self)
+
+            Widget:
+                on_parent: img_operations.dismiss()
+
+                DropDown:
+                    id: img_operations
+                    # on_select: file.text = 'Selected value: {}'.format(args[1])
+
+                    Button:
+                        text: '%s'%(icon('zmdi-plus',28))
+                        markup: True
+                        size_hint_y: None
+                        height: '50dp'
+                        on_release: img_operations.select('New')
+                        background_color: (0,0,0,.3)
+
+                    Button:
+                        text: '%s'%(icon('zmdi-sign-in',28))
+                        markup: True
+                        size_hint_y: None
+                        height: '50dp'
+                        on_release: root.close()
+                        background_color: (0,0,0,.3)
